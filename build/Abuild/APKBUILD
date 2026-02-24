@@ -1,0 +1,41 @@
+# Alpine-Contributor: Łukasz Jendrysik <scadu@yandex.com>
+# Alpine-Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+# Maintainer: Felix Xing <fxing@qnx.com>
+pkgname=exo
+pkgver=4.21.0
+pkgrel=0
+pkgdesc="Extensions to Xfce by os-cillation"
+url="https://docs.xfce.org/xfce/exo/start"
+arch="all"
+license="GPL-2.0-or-later AND LGPL-2.1-or-later"
+depends="libxfce4ui libxfce4util gtk3 libintl libnotify exo-libs"
+makedepends="gtk3-dev libxfce4util-dev libxfce4ui-dev perl
+    libnotify-dev gettext"
+options="!check"
+subpackages="$pkgname-dev $pkgname-doc $pkgname-lang $pkgname-libs"
+source="https://archive.xfce.org/src/xfce/exo/${pkgver%.*}/exo-$pkgver.tar.bz2
+    "
+
+build() {
+    ./configure \
+        --build=$CBUILD \
+        --host=$CHOST \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --libexecdir=/usr/lib/xfce4 \
+        --localstatedir=/var \
+        --disable-static
+    make
+}
+
+check() {
+    make check
+}
+
+package() {
+    make DESTDIR="$pkgdir" install
+}
+
+sha512sums="
+97b5887f9a7fae63148b3b1ee8d5c89a229d5cd5796699a13729aa3fd1e54412b5a0756b91c87f1dbbadbcdabd5c9a5cfa3fb97f978fd7d19d10e2ac00c523fa  exo-4.21.0.tar.bz2
+"
