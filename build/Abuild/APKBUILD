@@ -3,7 +3,7 @@
 # Maintainer: Felix Xing <fxing@qnx.com>
 pkgname=exo
 pkgver=4.21.0
-pkgrel=0
+pkgrel=${pkgrel:-0}
 pkgdesc="Extensions to Xfce by os-cillation"
 url="https://docs.xfce.org/xfce/exo/start"
 arch="all"
@@ -36,6 +36,7 @@ package() {
     make DESTDIR="$pkgdir" install
 }
 
+options="$options ${DISABLE_CHECK:+!check}"
 sha512sums="
 97b5887f9a7fae63148b3b1ee8d5c89a229d5cd5796699a13729aa3fd1e54412b5a0756b91c87f1dbbadbcdabd5c9a5cfa3fb97f978fd7d19d10e2ac00c523fa  exo-4.21.0.tar.bz2
 "
